@@ -4,6 +4,10 @@
 TARGET_SCRIPT="/tmp/zapret_autoconfig.sh"
 SCRIPT_URL="https://raw.githubusercontent.com/FoolTrigger/zapret_autoconfig/main/zapret_autoconfig.sh"
 
+echo "[INFO] Отключаем zapret..."
+/etc/init.d/zapret stop
+sleep 3
+
 echo "[INFO] Скачиваем zapret_autoconfig.sh в $TARGET_SCRIPT ..."
 wget -q -O "$TARGET_SCRIPT" "$SCRIPT_URL"
 
@@ -11,6 +15,10 @@ if [ ! -f "$TARGET_SCRIPT" ]; then
   echo "[ERROR] Не удалось загрузить основной скрипт."
   exit 1
 fi
+
+echo "[INFO] Запускаем zapret..."
+/etc/init.d/zapret start
+sleep 3
 
 chmod +x "$TARGET_SCRIPT"
 echo "[INFO] Скрипт загружен и сделан исполняемым."
