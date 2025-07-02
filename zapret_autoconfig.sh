@@ -10,7 +10,7 @@
   SERVICE_SCRIPT="/etc/init.d/zapret"
   TELEGRAM_BOT_TOKEN=""  # вставь токен бота
   TELEGRAM_CHAT_ID=""    # вставь id чата
-  MAX_ATTEMPTS=12
+  MAX_ATTEMPTS=20
   YOUTUBE_URL="https://www.youtube.com"
 
   # Легкие параметры — быстрые попытки
@@ -99,7 +99,7 @@
 
   restart_zapret() {
     $SERVICE_SCRIPT restart
-    sleep 15
+    sleep 10
   }
 
   echo "[zapret_autoconfig] Проверяем доступность YouTube..."
