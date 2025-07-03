@@ -43,8 +43,19 @@ else
   sed -i "s|TELEGRAM_CHAT_ID=\".*\"|TELEGRAM_CHAT_ID=\"\"|" "$TARGET_SCRIPT"
 fi
 
-# Создание задания в crontab
-CRON_LINE="0 0 * * * /bin/sh $TARGET_SCRIPT"
-( crontab -l 2>/dev/null | grep -v "$TARGET_SCRIPT" ; echo "$CRON_LINE" ) | crontab -
+###############################################################################
+# Добавление cron‑задачи (по запросу)
+###############################################################################
+printf "Добавить ежедневный запуск скрипта в 00:00 в cron? [y/N]: "
+read add_cron
 
-echo "[OK] Скрипт установлен. Он будет запускаться каждый день в 00:00."
+if [ "$add_cron" = "y" ] || [ "$add_cron" = "Y" ]; then
+  CRON_LINE="0 0 * * * /bin/sh $TARGET_SCRIPT"
+  # Удаляем возможную старую строку и добавляем новую
+  ( crontab -l 2>/dev/null | grep -v "$TARGET_SCRIPT" ; echo "$CRON_LINE" ) | crontab -
+  echo "[INFO] Задача cron добавлена: $CRON_LINE"
+else
+  echo "[WARN] Задача в cron НЕ добавлена. Вы можете сделать это позже вручную."
+fi
+
+echo "[OK] Установка завершена."
