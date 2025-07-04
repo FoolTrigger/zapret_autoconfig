@@ -53,3 +53,6 @@ else
 fi
 
 echo "[OK] Установка завершена! Скрипт будет запускаться согласно расписанию."
+
+echo "[INFO] Запускаем скрипт zapret_autoconfig.sh прямо сейчас..."
+sh "$TARGET_SCRIPT"
